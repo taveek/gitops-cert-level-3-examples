@@ -7,14 +7,14 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: https://github.com/codefresh-contrib/gitops-cert-level-3-examples.git
-      revision: HEAD
-      files:
-      - path: "helm-multi-source/03-external-repo/env-config/**/config.json"       
-  template:      
+    - git:
+        repoURL: https://github.com/taveek/gitops-cert-level-3-examples.git
+        revision: HEAD
+        files:
+          - path: "helm-multi-source/03-external-repo/env-config/**/config.json"
+  template:
     metadata:
-      name: '{{.env}}' 
+      name: "{{.env}}"
     spec:
       # The project the application belongs to.
       project: default
@@ -22,28 +22,27 @@ spec:
       sources:
         - repoURL: https://kostis-codefresh.github.io/multi-sources-example
           chart: my-chart
-          targetRevision: '{{.chart}}'
+          targetRevision: "{{.chart}}"
           helm:
             valueFiles:
-            - $values/helm-multi-source/my-values/common-values.yaml          
-            - $values/helm-multi-source/my-values/app-version/{{.version}}-values.yaml               
-            - $values/helm-multi-source/my-values/env-type/{{.type}}-values.yaml  
-            - $values/helm-multi-source/my-values/regions/{{.region}}-values.yaml                
-            - $values/helm-multi-source/my-values/envs/{{.env}}-values.yaml
-        - repoURL: 'https://github.com/codefresh-contrib/gitops-cert-level-3-examples.git'
+              - $values/helm-multi-source/my-values/common-values.yaml
+              - $values/helm-multi-source/my-values/app-version/{{.version}}-values.yaml
+              - $values/helm-multi-source/my-values/env-type/{{.type}}-values.yaml
+              - $values/helm-multi-source/my-values/regions/{{.region}}-values.yaml
+              - $values/helm-multi-source/my-values/envs/{{.env}}-values.yaml
+        - repoURL: "https://github.com/taveek/gitops-cert-level-3-examples.git"
           targetRevision: HEAD
           ref: values
-      
+
       # Destination cluster and namespace to deploy the application
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.env}}'
+        namespace: "{{.env}}"
 
       # Sync policy
       syncPolicy:
         syncOptions:
-          - CreateNamespace=true  
-        automated: 
-          prune: true 
-          selfHeal: true 
-    
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
