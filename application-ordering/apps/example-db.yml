@@ -4,17 +4,17 @@ metadata:
   name: my-db
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"  
+    argocd.argoproj.io/sync-wave: "1"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io        
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/codefresh-contrib/gitops-cert-level-3-examples.git
+    repoURL: https://github.com/taveek/gitops-cert-level-3-examples.git
     targetRevision: HEAD
     path: ./application-ordering/manifests/db
-   
+
   destination:
     server: https://kubernetes.default.svc
     namespace: my-db
@@ -22,8 +22,7 @@ spec:
   # Sync policy
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true  
-    automated: 
+      - CreateNamespace=true
+    automated:
       prune: true
-      selfHeal: true 
-  
+      selfHeal: true

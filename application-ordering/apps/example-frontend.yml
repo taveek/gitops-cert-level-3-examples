@@ -4,17 +4,17 @@ metadata:
   name: my-frontend
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"  
+    argocd.argoproj.io/sync-wave: "3"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io      
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/codefresh-contrib/gitops-cert-level-3-examples.git
+    repoURL: https://github.com/taveek/gitops-cert-level-3-examples.git
     targetRevision: HEAD
     path: ./application-ordering/manifests/frontend
-   
+
   destination:
     server: https://kubernetes.default.svc
     namespace: my-frontend
@@ -22,8 +22,7 @@ spec:
   # Sync policy
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true  
-    automated: 
+      - CreateNamespace=true
+    automated:
       prune: true
-      selfHeal: true 
-  
+      selfHeal: true
